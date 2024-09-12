@@ -23,11 +23,12 @@ app.use(cookieParser());
 app.use(helmet()); // Add security-related headers
 
 // CORS configuration
-const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'frontendgmail.vercel.app', // Make origin configurable via environment variable
-  credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors({ origin: '*' }));
+// const corsOptions = {
+//   origin: process.env.CORS_ORIGIN || 'https://frontendgmail.vercel.app', // Make origin configurable via environment variable
+//   credentials: true,
+// };
+// app.use(cors(corsOptions));
 
 // API routes
 app.use('/api/v1/user', userRoute);
