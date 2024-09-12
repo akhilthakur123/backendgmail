@@ -6,6 +6,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import userRoute from './routes/user.route.js';
 import emailRoute from './routes/email.route.js';
+import homeRoute from './routes/home.route.js'; // Import home route
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -13,7 +14,7 @@ dotenv.config(); // Load environment variables from .env file
 connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 8080; // Use environment variable for port
+const PORT = process.env.PORT || 5000; // Use environment variable for port
 
 // Middleware setup
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +32,8 @@ app.use(cors(corsOptions));
 // API routes
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/email', emailRoute);
+app.use('/', homeRoute);
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
