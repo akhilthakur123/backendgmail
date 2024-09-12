@@ -22,11 +22,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(helmet()); // Add security-related headers
 
-// CORS configuration
-app.use(cors({ origin: '*' }));
+// CORS configuration - Allow all origins
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || '*', // Make origin configurable via environment variable
+  origin: '*', // Allow all origins (use carefully in production)
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
 };
 app.use(cors(corsOptions));
 
@@ -35,13 +36,12 @@ app.use('/api/v1/user', userRoute);
 app.use('/api/v1/email', emailRoute);
 app.use('/', homeRoute);
 
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err.message); // Log error message
   res.status(err.status || 500).json({
     message: err.message || 'Internal Server Error',
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
   });
 });
 
