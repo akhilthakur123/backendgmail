@@ -24,7 +24,7 @@ app.use(helmet()); // Add security-related headers
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173', // Make origin configurable via environment variable
+  origin: process.env.CORS_ORIGIN || 'frontendgmail.vercel.app', // Make origin configurable via environment variable
   credentials: true,
 };
 app.use(cors(corsOptions));
